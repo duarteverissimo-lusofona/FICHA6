@@ -110,3 +110,18 @@ class ExperienciaProfissional(models.Model):
 
     def __str__(self):
         return f"{self.cargo} - {self.empresa}"
+
+
+# Representa o Making Of
+class MakingOf(models.Model):
+    titulo = models.CharField(max_length=200)
+    descricao = models.TextField()
+    decisoes = models.TextField(blank=True, null=True)
+    erros_correcoes = models.TextField(blank=True, null=True)
+    data_registo = models.DateTimeField(auto_now_add=True)
+    entidade_referida = models.CharField(max_length=200, blank=True)
+    foto_papel = models.ImageField(upload_to='making_of/', blank=True, null=True)
+    uso_ia = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.titulo
