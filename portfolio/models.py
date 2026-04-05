@@ -57,8 +57,17 @@ class Tecnologia(models.Model):
 
 # Representa um projeto
 class Projeto(models.Model):
+    AMBITO_CHOICES = [
+        ('academico', 'Académico'),
+        ('pessoal', 'Pessoal'),
+        ('profissional', 'Profissional'),
+        ('freelance', 'Freelance'),
+        ('outro', 'Outro'),
+    ]
+
     titulo = models.CharField(max_length=200)
     descricao = models.TextField()
+    ambito = models.CharField(max_length=50, choices=AMBITO_CHOICES, default='academico')
     conceitos_aplicados = models.TextField(blank=True, null=True)
     url_github = models.URLField(blank=True, null=True)
     url_demo = models.URLField(blank=True, null=True)
@@ -111,7 +120,7 @@ class Formacao(models.Model):
     instituicao = models.CharField(max_length=200)
     data_inicio = models.DateField()
     data_fim = models.DateField(blank=True, null=True)
-    certificado_url = models.URLField(blank=True, null=True)
+    certificado = models.ImageField(upload_to='certificados/', blank=True, null=True)
     tipo = models.CharField(max_length=50, choices=TIPO_CHOICES)
 
     def __str__(self):
