@@ -71,7 +71,7 @@ class Projeto(models.Model):
 # Representa um Trabalho Final de Curso
 class TFC(models.Model):
     titulo = models.CharField(max_length=200)
-    resumo = models.TextField(blank=True, null=True)
+    resumo = models.TextField(blank=True)
     ano = models.IntegerField(blank=True, null=True)
     area_tematica = models.CharField(max_length=200)
     url_repositorio = models.URLField(blank=True, null=True)
@@ -80,3 +80,14 @@ class TFC(models.Model):
 
     def __str__(self):
         return self.titulo
+
+
+# Representa uma competência (Soft ou Hard Skill)
+class Competencia(models.Model):
+    nome = models.CharField(max_length=200)
+    categoria =  models.CharField(max_length=100, blank=True) 
+    descricao = models.TextField(blank=True, null=True)
+    nivel = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+
+    def __str__(self):
+        return self.nome

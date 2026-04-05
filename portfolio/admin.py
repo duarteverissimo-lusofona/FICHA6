@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Licenciatura, Docente, UnidadeCurricular, Tecnologia, Projeto, TFC
+from .models import Licenciatura, Docente, UnidadeCurricular, Tecnologia, Projeto, TFC, Competencia
 
 
 @admin.register(Licenciatura)
@@ -40,3 +40,10 @@ class ProjetoAdmin(admin.ModelAdmin):
 class TFCAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'ano', 'area_tematica', 'nivel_interesse')
     search_fields = ('titulo', 'resumo', 'area_tematica')
+
+
+@admin.register(Competencia)
+class CompetenciaAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'categoria', 'nivel')
+    list_filter = ('categoria',)
+    search_fields = ('nome',)
