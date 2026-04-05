@@ -92,6 +92,23 @@ class Competencia(models.Model):
     def __str__(self):
         return self.nome
 
+# Representa uma formação académica ou certificação
+class Formacao(models.Model):
+    TIPO_CHOICES = [
+        ('Mestrado', 'Mestrado'),
+        ('Curso de Curta Duração', 'Curso de Curta Duração'),
+        ('Workshop', 'Workshop'),
+    ]
+
+    titulo = models.CharField(max_length=200)
+    instituicao = models.CharField(max_length=200)
+    data_inicio = models.DateField()
+    data_fim = models.DateField(blank=True, null=True)
+    certificado_url = models.URLField(blank=True, null=True)
+    tipo = models.CharField(max_length=50, choices=TIPO_CHOICES)
+
+    def __str__(self):
+        return f"{self.titulo} - {self.instituicao}"
 
 # Representa uma experiência profissional
 class ExperienciaProfissional(models.Model):
@@ -125,3 +142,5 @@ class MakingOf(models.Model):
 
     def __str__(self):
         return self.titulo
+
+
