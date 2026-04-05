@@ -82,7 +82,7 @@ class TFC(models.Model):
         return self.titulo
 
 
-# Representa uma competência (Soft ou Hard Skill)
+# Representa uma competência
 class Competencia(models.Model):
     nome = models.CharField(max_length=200)
     categoria =  models.CharField(max_length=100, blank=True) 
@@ -91,3 +91,22 @@ class Competencia(models.Model):
 
     def __str__(self):
         return self.nome
+
+
+# Representa uma experiência profissional
+class ExperienciaProfissional(models.Model):
+    TIPO_CHOICES = [
+        ('Full-time', 'Full-time'),
+        ('Part-time', 'Part-time'),
+        ('Estágio', 'Estágio'),
+    ]
+
+    empresa = models.CharField(max_length=200)
+    cargo = models.CharField(max_length=200)
+    tipo = models.CharField(max_length=50, choices=TIPO_CHOICES)
+    descricao = models.TextField(blank=True, null=True)
+    data_inicio = models.DateField()
+    data_fim = models.DateField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.cargo} - {self.empresa}"
