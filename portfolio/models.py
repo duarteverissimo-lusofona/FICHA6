@@ -83,13 +83,19 @@ class Projeto(models.Model):
 
 # Representa um Trabalho Final de Curso
 class TFC(models.Model):
-    titulo = models.CharField(max_length=200)
+    titulo = models.CharField(max_length=255)
     resumo = models.TextField(blank=True)
     ano = models.IntegerField(blank=True, null=True)
-    area_tematica = models.CharField(max_length=200)
-    url_repositorio = models.URLField(blank=True, null=True)
-    nivel_interesse = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-    imagem = models.ImageField(upload_to='tfcs/', blank=True, null=True)
+    imagem_url = models.URLField(blank=True, null=True)
+    pdf_url = models.URLField(blank=True, null=True)
+    nivel_interesse = models.IntegerField(default=3, validators=[MinValueValidator(1), MaxValueValidator(5)])
+    parceiro = models.CharField(max_length=200, blank=True, null=True)
+    palavras_chave = models.TextField(blank=True)
+    areas = models.TextField(blank=True)
+
+    # Relações
+    orientadores = models.ManyToManyField(Docente, related_name='tfcs_orientados', blank=True)
+    licenciatura = models.ForeignKey(Licenciatura, on_delete=models.SET_NULL, null=True, blank=True)
     tecnologias = models.ManyToManyField(Tecnologia, related_name='tfcs', blank=True)
 
     def __str__(self):
