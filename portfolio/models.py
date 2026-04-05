@@ -34,6 +34,8 @@ class UnidadeCurricular(models.Model):
     descricao = models.TextField(blank=True)
     ects = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True)
     imagem = models.ImageField(upload_to='ucs/', blank=True, null=True)
+    licenciatura = models.ForeignKey(Licenciatura, on_delete=models.CASCADE, related_name='ucs', blank=True, null=True)
+    docentes = models.ManyToManyField(Docente, related_name='ucs', blank=True)
 
     def __str__(self):
         return self.nome
@@ -63,6 +65,8 @@ class Projeto(models.Model):
     imagem = models.ImageField(upload_to='projetos/', blank=True, null=True)
     video_url = models.URLField(blank=True, null=True)
     ano = models.IntegerField(blank=True, null=True)
+    uc = models.ForeignKey(UnidadeCurricular, on_delete=models.SET_NULL, related_name='projetos', blank=True, null=True)
+    tecnologias = models.ManyToManyField(Tecnologia, related_name='projetos', blank=True)
 
     def __str__(self):
         return self.titulo
@@ -77,6 +81,7 @@ class TFC(models.Model):
     url_repositorio = models.URLField(blank=True, null=True)
     nivel_interesse = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     imagem = models.ImageField(upload_to='tfcs/', blank=True, null=True)
+    tecnologias = models.ManyToManyField(Tecnologia, related_name='tfcs', blank=True)
 
     def __str__(self):
         return self.titulo
@@ -88,6 +93,8 @@ class Competencia(models.Model):
     categoria =  models.CharField(max_length=100, blank=True) 
     descricao = models.TextField(blank=True, null=True)
     nivel = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    projetos = models.ManyToManyField('Projeto', related_name='competencias', blank=True)
+    formacoes = models.ManyToManyField('Formacao', related_name='competencias', blank=True)
 
     def __str__(self):
         return self.nome
@@ -124,6 +131,8 @@ class ExperienciaProfissional(models.Model):
     descricao = models.TextField(blank=True, null=True)
     data_inicio = models.DateField()
     data_fim = models.DateField(blank=True, null=True)
+    tecnologias = models.ManyToManyField(Tecnologia, related_name='experiencias', blank=True)
+    competencias = models.ManyToManyField(Competencia, related_name='experiencias', blank=True)
 
     def __str__(self):
         return f"{self.cargo} - {self.empresa}"
