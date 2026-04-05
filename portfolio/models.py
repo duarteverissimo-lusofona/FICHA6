@@ -1,30 +1,53 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
+
+#Representa uma licenciatura
 class Licenciatura(models.Model):
-
-
     nome = models.CharField(max_length=200)
     sigla = models.CharField(max_length=10)
-    descricao = models.TextField()
-    objetivos = models.TextField()
-    ects_total = models.IntegerField()
-    duracao_anos = models.IntegerField()
-    url_oficial = models.URLField()
+    descricao = models.TextField(blank=True)
+    objetivos = models.TextField(blank=True)
+    ects_total = models.IntegerField(blank=True, null=True)
+    duracao_anos = models.IntegerField(default=3)
+    url_oficial = models.URLField(blank=True, null=True)
     departamento = models.CharField(max_length=200)
 
     def __str__(self):
         return self.nome
 
+#Representa um Docente
 class Docente(models.Model):
     nome = models.CharField(max_length=200)
-    email = models.EmailField()
     url_pagina_lusofona = models.URLField(blank=True, null=True)
-    foto = models.ImageField(upload_to='docentes/', blank=True, null=True)
-    departamento = models.CharField(max_length=200)
-    resumo = models.TextField(blank=True, null=True)       
-    url_ciencia_vitae = models.URLField(blank=True, null=True)
-    url_orcid = models.URLField(blank=True, null=True)       
-    url_pure = models.URLField(blank=True, null=True)           
-    
+    foto = models.ImageField(upload_to='docentes/', blank=True, null=True)    
+
+    def __str__(self):
+        return self.nome
+
+
+# Representa uma unidade curricular em abstrato
+class UnidadeCurricular(models.Model):
+
+    nome = models.CharField(max_length=150)
+    sigla = models.CharField(max_length=20, blank=True)
+    descricao = models.TextField(blank=True)
+    ects = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True)
+    imagem = models.ImageField(upload_to='ucs/', blank=True, null=True)
+
+    def __str__(self):
+        return self.nome
+
+#Representa uma Tecnologia
+class Tecnologia(models.Model):
+
+    nome = models.CharField(max_length=200)
+    tipo = models.CharField(max_length=50)
+    descricao = models.TextField(blank=True)
+    logo = models.ImageField(upload_to='tecnologias/', blank=True, null=True)
+    url_oficial = models.URLField(blank=True, null=True)
+    nivel_interesse = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+
+
     def __str__(self):
         return self.nome
