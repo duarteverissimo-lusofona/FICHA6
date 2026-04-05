@@ -51,3 +51,18 @@ class Tecnologia(models.Model):
 
     def __str__(self):
         return self.nome
+
+
+# Representa um projeto
+class Projeto(models.Model):
+    titulo = models.CharField(max_length=200)
+    descricao = models.TextField()
+    conceitos_aplicados = models.TextField(blank=True, null=True)
+    url_github = models.URLField(blank=True, null=True)
+    url_demo = models.URLField(blank=True, null=True)
+    imagem = models.ImageField(upload_to='projetos/', blank=True, null=True)
+    video_url = models.URLField(blank=True, null=True)
+    ano = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return self.titulo
