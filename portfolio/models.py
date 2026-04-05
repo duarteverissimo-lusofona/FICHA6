@@ -66,3 +66,17 @@ class Projeto(models.Model):
 
     def __str__(self):
         return self.titulo
+
+
+# Representa um Trabalho Final de Curso
+class TFC(models.Model):
+    titulo = models.CharField(max_length=200)
+    resumo = models.TextField(blank=True, null=True)
+    ano = models.IntegerField(blank=True, null=True)
+    area_tematica = models.CharField(max_length=200)
+    url_repositorio = models.URLField(blank=True, null=True)
+    nivel_interesse = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    imagem = models.ImageField(upload_to='tfcs/', blank=True, null=True)
+
+    def __str__(self):
+        return self.titulo
