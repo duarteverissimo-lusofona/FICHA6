@@ -34,6 +34,12 @@ class UnidadeCurricular(models.Model):
     descricao = models.TextField(blank=True)
     ects = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True)
     imagem = models.ImageField(upload_to='ucs/', blank=True, null=True)
+    ano_curricular = models.IntegerField(blank=True, null=True)
+    semestre = models.CharField(max_length=30, blank=True)
+    objetivos = models.TextField(blank=True)
+    conteudos = models.TextField(blank=True)
+    bibliografia = models.TextField(blank=True)
+    apresentacao = models.TextField(blank=True)
     licenciatura = models.ForeignKey(Licenciatura, on_delete=models.SET_NULL, related_name='ucs', blank=True, null=True)
     docentes = models.ManyToManyField(Docente, related_name='ucs', blank=True)
 
