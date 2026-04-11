@@ -1,10 +1,10 @@
-@startuml Diagrama ER Final
+@startuml Diagrama ER Inicial (Versão Papel)
 !theme plain
 skinparam roundcorner 5
 skinparam shadowing false
 skinparam linetype ortho
 
-title Diagrama Entidade-Relação — Versão Final
+title Diagrama Entidade-Relação — Versão Inicial (Papel)
 
 entity "Licenciatura" as L {
   * id : int <<PK>>
@@ -12,11 +12,10 @@ entity "Licenciatura" as L {
   nome : varchar
   sigla : varchar
   descricao : text
-  objetivos : text
+  departamento : varchar
   ects_total : int
   duracao_anos : int
   url_oficial : varchar
-  departamento : varchar
 }
 
 entity "Docente" as D {
@@ -37,10 +36,7 @@ entity "UnidadeCurricular" as UC {
   imagem : image
   ano_curricular : int
   semestre : varchar
-  objetivos : text
-  conteudos : text
-  bibliografia : text
-  apresentacao : text
+  licenciatura_id : int <<FK>>
 }
 
 entity "Tecnologia" as T {
@@ -64,7 +60,6 @@ entity "Projeto" as P {
   url_github : varchar
   url_demo : varchar
   imagem : image
-  video_url : varchar
   ano : int
   uc_id : int <<FK>>
 }
@@ -72,16 +67,13 @@ entity "Projeto" as P {
 entity "TFC" as TFC {
   * id : int <<PK>>
   --
-  titulo : varchar
+  * titulo : varchar
   resumo : text
   ano : int
-  imagem_url : varchar
-  pdf_url : varchar
-  nivel_interesse : int [1-5]
-  parceiro : varchar
-  palavras_chave : text
-  areas : text
-  licenciatura_id : int <<FK>>
+  area_tematica : varchar
+  url_repositorio : varchar
+  nivel_interesse : int
+  imagem : image
 }
 
 entity "Competencia" as C {
@@ -129,19 +121,41 @@ entity "MakingOf" as MO {
 }
 
 ' ═══════════════════════════════════════
-' RELAÇÕES (versão final)
+' RELAÇÕES (versão inicial desenhada no papel)
 ' ═══════════════════════════════════════
 
-L }o--o{ UC : "N:N"
-UC }o--o{ D : "N:N"
-UC ||--o{ P : "1:N"
-P }o--o{ T : "N:N"
-L ||--o{ TFC : "1:N"
-TFC }o--o{ D : "N:N"
-TFC }o--o{ T : "N:N"
-C }o--o{ P : "N:N"
-C }o--o{ F : "N:N"
-EP }o--o{ T : "N:N"
-EP }o--o{ C : "N:N"
+' Licenciatura 1:N UnidadeCurricular
+' (na versão inicial, uma UC pertence a uma só licenciatura)
+L ||--o{ UC : "1:N  tem"
+
+' UnidadeCurricular M:N Docente
+UC }o--o{ D : "M:N  lecionada por"
+
+' Projeto N:1 UnidadeCurricular
+UC ||--o{ P : "1:N  origina"
+
+' Projeto M:N Tecnologia
+P }o--o{ T : "M:N  usa"
+
+' TFC N:1 Licenciatura
+L ||--|| TFC : "1:1  pertence a"
+
+' TFC N:1 Docente (orientador)
+TFC }o--|| D : "N:1  orientado por"
+
+' TFC M:N Tecnologia
+TFC }o--o{ T : "M:N  usa"
+
+' Competencia M:N Projeto
+C }o--o{ P : "M:N  demonstrada em"
+
+' Competencia M:N Formacao
+C }o--o{ F : "M:N  adquirida em"
+
+' ExperienciaProfissional M:N Tecnologia
+EP }o--o{ T : "M:N  utiliza"
+
+' ExperienciaProfissional M:N Competencia
+EP }o--o{ C : "M:N  requer"
 
 @enduml

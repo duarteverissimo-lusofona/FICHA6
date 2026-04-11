@@ -13,6 +13,7 @@ env/
 # Django
 db.sqlite3
 media/
+!media/making_of/
 *.log
 local_settings.py
 
