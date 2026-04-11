@@ -1,0 +1,145 @@
+@startuml
+!theme plain
+skinparam roundcorner 5
+skinparam shadowing false
+
+entity "Licenciatura" as L {
+  * id : int
+  --
+  nome : varchar
+  sigla : varchar
+  descricao : text
+  objetivos : text
+  ects_total : int
+  duracao_anos : int
+  url_oficial : varchar
+  departamento : varchar
+}
+
+entity "Docente" as D {
+  * id : int
+  --
+  nome : varchar
+  url_pagina_lusofona : varchar
+  foto : image
+}
+
+entity "UnidadeCurricular" as UC {
+  * id : int
+  --
+  nome : varchar
+  sigla : varchar
+  descricao : text
+  ects : decimal
+  imagem : image
+  ano_curricular : int
+  semestre : varchar
+  objetivos : text
+  conteudos : text
+  bibliografia : text
+  apresentacao : text
+}
+
+entity "Tecnologia" as T {
+  * id : int
+  --
+  nome : varchar
+  tipo : varchar
+  descricao : text
+  logo : image
+  url_oficial : varchar
+  nivel_interesse : int
+}
+
+entity "Projeto" as P {
+  * id : int
+  --
+  titulo : varchar
+  descricao : text
+  ambito : varchar
+  conceitos_aplicados : text
+  url_github : varchar
+  url_demo : varchar
+  imagem : image
+  video_url : varchar
+  ano : int
+}
+
+entity "TFC" as TFC {
+  * id : int
+  --
+  titulo : varchar
+  resumo : text
+  ano : int
+  imagem_url : varchar
+  pdf_url : varchar
+  nivel_interesse : int
+  parceiro : varchar
+  palavras_chave : text
+  areas : text
+}
+
+entity "Competencia" as C {
+  * id : int
+  --
+  nome : varchar
+  categoria : varchar
+  descricao : text
+  nivel : int
+}
+
+entity "Formacao" as F {
+  * id : int
+  --
+  titulo : varchar
+  instituicao : varchar
+  data_inicio : date
+  data_fim : date
+  certificado : image
+  tipo : varchar
+}
+
+entity "ExperienciaProfissional" as EP {
+  * id : int
+  --
+  empresa : varchar
+  cargo : varchar
+  tipo : varchar
+  descricao : text
+  data_inicio : date
+  data_fim : date
+}
+
+entity "MakingOf" as MO {
+  * id : int
+  --
+  titulo : varchar
+  descricao : text
+  decisoes : text
+  erros_correcoes : text
+  data_registo : datetime
+  entidade_referida : varchar
+  foto_papel : image
+  uso_ia : text
+}
+
+' Relacionamentos
+
+' Unidade Curricular agora tem relação N:M com Licenciatura
+L }o--o{ UC : "Tem (Muitos para Muitos)"
+UC }o--o{ D : "Docentes lecionam (Muitos para Muitos)"
+
+P }o--|| UC : "Projeto desenvolvido na (Muitos para Um)"
+P }o--o{ T : "Usa tecnologias (Muitos para Muitos)"
+
+TFC }o--o{ D : "Tem orientadores (Muitos para Muitos)"
+TFC }o--|| L : "Trabalho da Licenciatura (Muitos para Um)"
+TFC }o--o{ T : "Usa tecnologias (Muitos para Muitos)"
+
+C }o--o{ P : "Demonstradas em (Muitos para Muitos)"
+C }o--o{ F : "Adquiridas em (Muitos para Muitos)"
+
+EP }o--o{ T : "Uso de tecnologias (Muitos para Muitos)"
+EP }o--o{ C : "Demonstra competências (Muitos para Muitos)"
+
+@enduml

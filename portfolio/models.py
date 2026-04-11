@@ -40,7 +40,7 @@ class UnidadeCurricular(models.Model):
     conteudos = models.TextField(blank=True)
     bibliografia = models.TextField(blank=True)
     apresentacao = models.TextField(blank=True)
-    licenciatura = models.ForeignKey(Licenciatura, on_delete=models.SET_NULL, related_name='ucs', blank=True, null=True)
+    licenciaturas = models.ManyToManyField(Licenciatura, related_name='ucs', blank=True)
     docentes = models.ManyToManyField(Docente, related_name='ucs', blank=True)
 
     def __str__(self):
