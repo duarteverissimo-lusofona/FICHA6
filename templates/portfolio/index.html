@@ -1,0 +1,68 @@
+<!-- templates/portfolio/index.html -->
+
+{% extends "portfolio/base.html" %} {% block content %}
+<h2>Consultas</h2>
+
+<section>
+  <article>
+    <header>
+      <h3><a href="{% url 'portfolio_licenciaturas' %}">Licenciaturas</a></h3>
+      <p>Lista de licenciaturas registadas.</p>
+    </header>
+  </article>
+  <article>
+    <header>
+      <h3><a href="{% url 'portfolio_docentes' %}">Docentes</a></h3>
+      <p>Lista de docentes e respetivas unidades curriculares.</p>
+    </header>
+  </article>
+  <article>
+    <header>
+      <h3><a href="{% url 'portfolio_disciplinas' %}">Disciplinas</a></h3>
+      <p>Lista de unidades curriculares.</p>
+    </header>
+  </article>
+  <article>
+    <header>
+      <h3><a href="{% url 'portfolio_tecnologias' %}">Tecnologias</a></h3>
+      <p>Lista de tecnologias utilizadas e estudadas.</p>
+    </header>
+  </article>
+  <article>
+    <header>
+      <h3><a href="{% url 'portfolio_projetos' %}">Projetos</a></h3>
+      <p>Lista de projetos.</p>
+    </header>
+  </article>
+  <article>
+    <header>
+      <h3><a href="{% url 'portfolio_tfcs' %}">TFCs</a></h3>
+      <p>Lista de trabalhos finais de curso.</p>
+    </header>
+  </article>
+  <article>
+    <header>
+      <h3><a href="{% url 'portfolio_competencias' %}">Competencias</a></h3>
+      <p>Lista de competencias.</p>
+    </header>
+  </article>
+  <article>
+    <header>
+      <h3><a href="{% url 'portfolio_formacoes' %}">Formacoes</a></h3>
+      <p>Lista de formacoes e certificacoes.</p>
+    </header>
+  </article>
+  <article>
+    <header>
+      <h3><a href="{% url 'portfolio_experiencias' %}">Experiencias</a></h3>
+      <p>Lista de experiencias profissionais.</p>
+    </header>
+  </article>
+  <article>
+    <header>
+      <h3><a href="{% url 'portfolio_making_of' %}">Making of</a></h3>
+      <p>Registos do processo de desenvolvimento.</p>
+    </header>
+  </article>
+</section>
+{% endblock %}
