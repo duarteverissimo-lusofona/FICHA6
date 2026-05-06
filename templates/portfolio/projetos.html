@@ -3,6 +3,10 @@
 {% extends "portfolio/base.html" %} {% block content %}
 <h2>Projetos</h2>
 
+<p class="actions">
+  <a class="button" href="{% url 'novo_projeto' %}">Criar novo projeto</a>
+</p>
+
 <section>
   {% for projeto in projetos %}
   <article>
@@ -13,6 +17,11 @@
       <img src="{{ projeto.imagem.url }}" alt="Imagem de {{ projeto.titulo }}" />
       {% endif %}
     </header>
+
+    <p class="actions">
+      <a class="button" href="{% url 'edita_projeto' projeto.id %}">Editar</a>
+      <a class="button button-danger" href="{% url 'apaga_projeto' projeto.id %}">Apagar</a>
+    </p>
 
     <p>{{ projeto.descricao }}</p>
     {% if projeto.conceitos_aplicados %}

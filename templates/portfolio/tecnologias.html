@@ -3,6 +3,10 @@
 {% extends "portfolio/base.html" %} {% block content %}
 <h2>Tecnologias</h2>
 
+<p class="actions">
+  <a class="button" href="{% url 'nova_tecnologia' %}">Criar nova tecnologia</a>
+</p>
+
 <section>
   {% for tecnologia in tecnologias %}
   <article>
@@ -16,6 +20,11 @@
       <p><a href="{{ tecnologia.url_oficial }}">Site oficial</a></p>
       {% endif %}
     </header>
+
+    <p class="actions">
+      <a class="button" href="{% url 'edita_tecnologia' tecnologia.id %}">Editar</a>
+      <a class="button button-danger" href="{% url 'apaga_tecnologia' tecnologia.id %}">Apagar</a>
+    </p>
 
     {% if tecnologia.descricao %}
     <p>{{ tecnologia.descricao }}</p>

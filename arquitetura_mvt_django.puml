@@ -1,0 +1,56 @@
+@startuml Arquitetura MVT Django
+!theme plain
+skinparam roundcorner 8
+skinparam shadowing false
+skinparam linetype ortho
+skinparam componentStyle rectangle
+
+title Arquitetura MVT do Django
+
+actor "Utilizador" as user
+
+rectangle "Browser / Cliente" as browser {
+  component "Pedido HTTP\n(URL)" as request
+  component "Resposta HTTP\n(HTML/CSS/JS)" as response
+}
+
+rectangle "Projeto Django" as django {
+  component "urls.py\nURL Dispatcher" as urls
+
+  rectangle "MVT" as mvt {
+    component "View\n(logica da aplicacao)" as view
+    component "Model\n(dados e regras)" as model
+    component "Template\n(apresentacao)" as template
+  }
+}
+
+database "Base de Dados\n(SQLite/PostgreSQL/etc.)" as db
+
+user --> request : acede a pagina
+request --> urls : envia pedido
+urls --> view : escolhe a view
+
+view --> model : consulta / altera dados
+model --> db : ORM gera SQL
+db --> model : devolve dados
+model --> view : objetos Python
+
+view --> template : envia contexto
+template --> view : HTML renderizado
+
+view --> response : devolve HttpResponse
+response --> user : pagina apresentada
+
+note right of urls
+  urls.py decide qual view
+  responde a cada URL.
+end note
+
+note bottom of mvt
+  MVT = Model + View + Template
+  Model: dados
+  View: logica
+  Template: interface
+end note
+
+@enduml

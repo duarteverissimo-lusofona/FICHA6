@@ -1,0 +1,618 @@
+<!-- templates/portfolio/sobre_aplicacao.html -->
+
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>Sobre esta Aplicação</h2>
+
+<section class="about-page">
+  <article>
+    <header>
+      <h3>Apresentação</h3>
+    </header>
+
+    <p>
+      Esta página reúne informação técnica sobre a aplicação desenvolvida no
+      âmbito da disciplina de Programação Web.
+    </p>
+    <p>
+      Nas próximas fases serão acrescentadas secções sobre a arquitetura MVT do
+      Django, a modelação de dados, as tecnologias utilizadas, a estrutura das
+      páginas, o repositório GitHub e o processo de desenvolvimento.
+    </p>
+  </article>
+
+  <article>
+    <header>
+      <h3>Arquitetura MVT do Django</h3>
+    </header>
+
+    <p>
+      O Django organiza as aplicações web segundo a arquitetura MVT, que
+      significa Model, View e Template. Esta arquitetura separa as
+      responsabilidades da aplicação, tornando o código mais organizado, mais
+      fácil de compreender e mais simples de manter.
+    </p>
+
+    <figure>
+      <!-- Substituir futuramente por uma imagem carregada em static ou media. -->
+      <div>
+        Espaço reservado para a fotografia do desenho da arquitetura MVT feito
+        em papel e lápis.
+      </div>
+      <figcaption>
+        Representação manual da comunicação entre browser, URLs, views, models,
+        templates e base de dados.
+      </figcaption>
+    </figure>
+
+    <section>
+      <h4>Componentes principais</h4>
+
+      <p>
+        <strong>Model:</strong> representa os dados da aplicação. No Django, os
+        modelos são classes Python que definem entidades, campos e relações. A
+        partir destes modelos, o Django consegue comunicar com a base de dados.
+      </p>
+
+      <p>
+        <strong>View:</strong> recebe o pedido do utilizador, executa a lógica
+        necessária e devolve uma resposta. Pode consultar modelos, preparar
+        dados e escolher o template que será apresentado.
+      </p>
+
+      <p>
+        <strong>Template:</strong> define a apresentação visual da página. É
+        aqui que os dados enviados pela view são mostrados ao utilizador em
+        HTML.
+      </p>
+
+      <p>
+        <strong>URL Dispatcher:</strong> é o sistema de rotas do Django. Analisa
+        o endereço pedido pelo utilizador e encaminha esse pedido para a view
+        correta.
+      </p>
+
+      <p>
+        <strong>Browser/utilizador:</strong> representa quem acede à aplicação.
+        O browser envia pedidos HTTP e apresenta as páginas HTML recebidas como
+        resposta.
+      </p>
+
+      <p>
+        <strong>Base de dados:</strong> guarda a informação persistente da
+        aplicação, como projetos, tecnologias, unidades curriculares e outros
+        dados definidos nos modelos.
+      </p>
+    </section>
+
+    <section>
+      <h4>Fluxo de informação</h4>
+
+      <ol>
+        <li>O utilizador faz um pedido através do browser.</li>
+        <li>O URL Dispatcher analisa o URL e chama a view correspondente.</li>
+        <li>A view executa a lógica necessária para responder ao pedido.</li>
+        <li>Quando precisa de dados, a view comunica com o Model.</li>
+        <li>O Model consulta ou altera informação na base de dados.</li>
+        <li>A view envia os dados preparados para o Template.</li>
+        <li>O Template gera a página HTML final.</li>
+        <li>O browser recebe essa página e apresenta-a ao utilizador.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h4>Vídeo tutorial</h4>
+
+      <p>
+        Este espaço fica preparado para incluir um vídeo tutorial sobre a
+        arquitetura MVT do Django.
+      </p>
+
+      <!-- Substituir about:blank pelo link de incorporação do vídeo. -->
+      <iframe
+        src="about:blank"
+        title="Vídeo tutorial sobre a arquitetura MVT do Django"
+        width="560"
+        height="315"
+        allowfullscreen
+      ></iframe>
+    </section>
+  </article>
+
+  <article>
+    <header>
+      <h3>Modelação</h3>
+    </header>
+
+    <p>
+      A modelação da aplicação foi definida no ficheiro
+      <strong>portfolio/models.py</strong>. Este ficheiro contém as classes que
+      representam as principais entidades do portefólio e as relações entre
+      elas. Cada classe Django corresponde, em regra, a uma tabela na base de
+      dados.
+    </p>
+
+    <figure>
+      <!-- Substituir futuramente por uma imagem carregada em static ou media. -->
+      <div>
+        Espaço reservado para a fotografia ou imagem do diagrama
+        entidade-relação feito no desenho.
+      </div>
+      <figcaption>
+        Diagrama entidade-relação com as entidades principais da aplicação.
+      </figcaption>
+    </figure>
+
+    <section>
+      <h4>Entidades principais</h4>
+
+      <p>
+        <strong>Licenciatura:</strong> representa um curso, com campos como
+        nome, sigla, descrição, objetivos, total de ECTS, duração, URL oficial e
+        departamento.
+      </p>
+
+      <p>
+        <strong>Docente:</strong> representa um professor. Guarda o nome, a URL
+        da página oficial e, opcionalmente, uma fotografia.
+      </p>
+
+      <p>
+        <strong>UnidadeCurricular:</strong> representa uma disciplina. Inclui
+        campos como nome, sigla, descrição, ECTS, imagem, ano curricular,
+        semestre, objetivos, conteúdos, bibliografia e apresentação.
+      </p>
+
+      <p>
+        <strong>Tecnologia:</strong> representa uma tecnologia usada ou estudada
+        no portefólio. Tem nome, descrição, tipo, logo, URL oficial e nível de
+        interesse. O tipo é definido através da entidade TipoTecnologia.
+      </p>
+
+      <p>
+        <strong>TipoTecnologia:</strong> representa a categoria de uma
+        tecnologia, como Frontend, Backend, Base de Dados, Storage ou Outros.
+        Esta separação evita repetir texto livre e permite agrupar tecnologias
+        de forma mais consistente.
+      </p>
+
+      <p>
+        <strong>Projeto:</strong> representa um projeto desenvolvido. Guarda
+        título, descrição, âmbito, conceitos aplicados, links, imagem, vídeo,
+        ano e a unidade curricular associada, quando existir.
+      </p>
+
+      <p>
+        <strong>TFC:</strong> representa um Trabalho Final de Curso. Inclui
+        título, resumo, ano, links, nível de interesse, parceiro, palavras-chave
+        e áreas.
+      </p>
+
+      <p>
+        <strong>Competencia:</strong> representa uma competência técnica ou
+        pessoal, com nome, categoria, descrição e nível.
+      </p>
+
+      <p>
+        <strong>Formacao:</strong> representa formação académica, certificação
+        ou workshop, com título, instituição, datas, certificado e tipo.
+      </p>
+
+      <p>
+        <strong>ExperienciaProfissional:</strong> representa uma experiência de
+        trabalho, com empresa, cargo, tipo, descrição, datas, tecnologias e
+        competências associadas.
+      </p>
+
+      <p>
+        <strong>MakingOf:</strong> guarda registos do processo de
+        desenvolvimento, incluindo descrição, decisões, erros e correções,
+        imagem de apoio e uso de IA.
+      </p>
+    </section>
+
+    <section>
+      <h4>Relações entre entidades</h4>
+
+      <p>
+        A entidade <strong>UnidadeCurricular</strong> tem uma relação de muitos
+        para muitos com <strong>Licenciatura</strong>, porque uma disciplina
+        pode pertencer a mais do que uma licenciatura e uma licenciatura tem
+        várias disciplinas.
+      </p>
+
+      <p>
+        A entidade <strong>UnidadeCurricular</strong> também se relaciona com
+        <strong>Docente</strong> através de uma relação de muitos para muitos,
+        permitindo representar disciplinas lecionadas por vários docentes.
+      </p>
+
+      <p>
+        A entidade <strong>Projeto</strong> pode estar associada a uma
+        <strong>UnidadeCurricular</strong> através de uma chave estrangeira.
+        Esta relação indica a disciplina onde o projeto foi desenvolvido.
+      </p>
+
+      <p>
+        A entidade <strong>Projeto</strong> tem uma relação de muitos para
+        muitos com <strong>Tecnologia</strong>, porque um projeto pode usar
+        várias tecnologias e a mesma tecnologia pode ser usada em vários
+        projetos.
+      </p>
+
+      <p>
+        A entidade <strong>Tecnologia</strong> pertence a um
+        <strong>TipoTecnologia</strong>. Esta relação permite classificar cada
+        tecnologia e preparar a página para apresentar tecnologias agrupadas por
+        tipo.
+      </p>
+
+      <p>
+        A entidade <strong>TFC</strong> relaciona-se com
+        <strong>Docente</strong> através dos orientadores, com
+        <strong>Licenciatura</strong> através de uma chave estrangeira e com
+        <strong>Tecnologia</strong> através de uma relação de muitos para
+        muitos.
+      </p>
+
+      <p>
+        A entidade <strong>Competencia</strong> pode ser associada a projetos e
+        formações. A entidade <strong>ExperienciaProfissional</strong> também se
+        relaciona com tecnologias e competências, permitindo ligar experiência,
+        ferramentas utilizadas e capacidades desenvolvidas.
+      </p>
+    </section>
+
+    <section>
+      <h4>Versão visual simplificada</h4>
+
+      <ul>
+        <li>Licenciatura ↔ UnidadeCurricular ↔ Docente</li>
+        <li>UnidadeCurricular → Projeto</li>
+        <li>TipoTecnologia → Tecnologia</li>
+        <li>Projeto ↔ Tecnologia</li>
+        <li>TFC ↔ Docente</li>
+        <li>TFC → Licenciatura</li>
+        <li>TFC ↔ Tecnologia</li>
+        <li>Competencia ↔ Projeto</li>
+        <li>Competencia ↔ Formacao</li>
+        <li>ExperienciaProfissional ↔ Tecnologia</li>
+        <li>ExperienciaProfissional ↔ Competencia</li>
+      </ul>
+    </section>
+  </article>
+
+  <article>
+    <header>
+      <h3>Tecnologias</h3>
+    </header>
+
+    <p>
+      Esta secção apresenta as tecnologias registadas na base de dados e usadas
+      ou estudadas no contexto da aplicação. As tecnologias estão agrupadas pelo
+      respetivo tipo, o que facilita distinguir ferramentas de frontend,
+      backend, base de dados, armazenamento e outras categorias de apoio.
+    </p>
+
+    <p>
+      No desenvolvimento desta aplicação Django, tecnologias como Django, HTML,
+      CSS, Git, GitHub e a base de dados são importantes porque permitem criar a
+      lógica do servidor, estruturar páginas, aplicar estilos, controlar versões
+      e guardar informação persistente.
+    </p>
+
+    <section class="technology-groups">
+      {% for tipo in tipos_tecnologia %}
+      <div class="technology-group">
+        <header>
+          <h4>{{ tipo.nome }}</h4>
+          {% if tipo.descricao %}
+          <p>{{ tipo.descricao }}</p>
+          {% endif %}
+        </header>
+
+        <ul>
+          {% for tecnologia in tipo.tecnologias_ordenadas %}
+          <li>
+            <strong>{{ tecnologia.nome }}</strong>
+            {% if tecnologia.descricao %}
+            - {{ tecnologia.descricao }}
+            {% else %}
+            - tecnologia registada na base de dados para documentar o projeto.
+            {% endif %}
+            {% if tecnologia.url_oficial %}
+            <a href="{{ tecnologia.url_oficial }}" target="_blank" rel="noopener">
+              Site oficial
+            </a>
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% empty %}
+      <div class="technology-group">
+        <header>
+          <h4>Sem tecnologias registadas</h4>
+        </header>
+        <p>
+          As tecnologias desta aplicação serão apresentadas aqui depois de serem
+          inseridas na base de dados através do painel de administração ou de
+          dados iniciais.
+        </p>
+      </div>
+      {% endfor %}
+    </section>
+
+    <section>
+      <h4>Importância das tecnologias no projeto</h4>
+
+      <p>
+        O <strong>Django</strong> permite construir a aplicação no lado do
+        servidor, organizar rotas, views, modelos e templates. A sua principal
+        vantagem é acelerar o desenvolvimento com uma estrutura já preparada;
+        como ponto menos positivo, exige compreender bem a organização do
+        framework.
+      </p>
+
+      <p>
+        O <strong>HTML</strong> define a estrutura das páginas e o
+        <strong>CSS</strong> controla a apresentação visual. São tecnologias
+        essenciais para construir a interface, embora exijam atenção à
+        organização e à responsividade.
+      </p>
+
+      <p>
+        O <strong>Git</strong> e o <strong>GitHub</strong> ajudam a controlar
+        versões, manter histórico de alterações e guardar o projeto remotamente.
+        A principal vantagem é a segurança e organização do trabalho; a
+        dificuldade inicial está em compreender bem commits, branches e merges.
+      </p>
+
+      <p>
+        A <strong>base de dados</strong>, neste projeto SQLite, guarda os dados
+        persistentes da aplicação. É simples de usar em desenvolvimento, embora
+        em projetos maiores possa fazer sentido usar uma solução mais robusta,
+        como PostgreSQL.
+      </p>
+    </section>
+  </article>
+
+  <article>
+    <header>
+      <h3>Estrutura das páginas</h3>
+    </header>
+
+    <p>
+      A aplicação está organizada em várias páginas ligadas através do menu de
+      navegação principal do portefólio. Esta estrutura permite separar a
+      informação por temas, tornando a consulta mais clara e facilitando a
+      manutenção futura.
+    </p>
+
+    <figure>
+      <!-- Substituir futuramente por uma imagem carregada em static ou media. -->
+      <div>
+        Espaço reservado para uma imagem ou desenho do mapa de navegação da
+        aplicação.
+      </div>
+      <figcaption>
+        Mapa de navegação com as principais páginas do portefólio e as ligações
+        entre elas.
+      </figcaption>
+    </figure>
+
+    <section>
+      <h4>Navegação principal</h4>
+
+      <p>
+        A página inicial do portefólio funciona como ponto de entrada para as
+        restantes áreas. A partir do menu, o utilizador pode aceder às páginas
+        de consulta, às páginas técnicas e aos registos do processo de
+        desenvolvimento.
+      </p>
+
+      <ul>
+        <li>
+          <strong>Início:</strong> apresenta as principais áreas disponíveis no
+          portefólio.
+        </li>
+        <li>
+          <strong>Sobre esta Aplicação:</strong> reúne a documentação técnica da
+          aplicação, incluindo arquitetura, modelação, tecnologias e estrutura.
+        </li>
+        <li>
+          <strong>Licenciaturas:</strong> lista os cursos registados e a sua
+          informação principal.
+        </li>
+        <li>
+          <strong>Docentes:</strong> apresenta os docentes e as unidades
+          curriculares associadas.
+        </li>
+        <li>
+          <strong>Disciplinas:</strong> mostra as unidades curriculares e a sua
+          relação com cursos e docentes.
+        </li>
+        <li>
+          <strong>Tecnologias:</strong> lista tecnologias usadas, estudadas ou
+          associadas a projetos.
+        </li>
+        <li>
+          <strong>Projetos:</strong> apresenta projetos desenvolvidos e as
+          tecnologias utilizadas em cada um.
+        </li>
+        <li>
+          <strong>TFCs:</strong> mostra Trabalhos Finais de Curso e informação
+          associada.
+        </li>
+        <li>
+          <strong>Competências:</strong> organiza competências técnicas ou
+          pessoais e liga-as a projetos e formações.
+        </li>
+        <li>
+          <strong>Formações:</strong> apresenta formação académica,
+          certificações ou workshops.
+        </li>
+        <li>
+          <strong>Experiências:</strong> mostra experiências profissionais,
+          tecnologias usadas e competências relacionadas.
+        </li>
+        <li>
+          <strong>Making of:</strong> guarda registos do processo de
+          desenvolvimento da aplicação.
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h4>Relação entre páginas</h4>
+
+      <p>
+        As páginas de consulta estão ligadas pelos dados definidos nos modelos.
+        Por exemplo, um projeto pode estar associado a tecnologias, uma unidade
+        curricular pode estar ligada a docentes e licenciaturas, e uma
+        experiência profissional pode estar relacionada com tecnologias e
+        competências.
+      </p>
+
+      <p>
+        Esta organização permite que a aplicação cresça sem concentrar toda a
+        informação numa única página. No futuro, podem ser adicionadas novas
+        páginas ou subpáginas mantendo o mesmo padrão: rota em
+        <strong>urls.py</strong>, view em <strong>views.py</strong> e template
+        próprio com herança de <strong>base.html</strong>.
+      </p>
+    </section>
+  </article>
+
+  <article>
+    <header>
+      <h3>Repositório GitHub</h3>
+    </header>
+
+    <p>
+      O código-fonte desta aplicação está guardado num repositório GitHub, que
+      funciona como cópia remota do projeto e como histórico organizado do
+      desenvolvimento.
+    </p>
+
+    <p>
+      <a
+        href="https://github.com/duarteverissimo-lusofona/FICHA6"
+        target="_blank"
+        rel="noopener"
+      >
+        Aceder ao repositório GitHub
+      </a>
+    </p>
+
+    <section>
+      <h4>Utilização do GitHub no desenvolvimento</h4>
+
+      <p>
+        O GitHub foi usado em conjunto com o Git para guardar versões do projeto
+        ao longo do tempo. Cada alteração importante pode ser registada através
+        de commits, permitindo acompanhar a evolução da aplicação e compreender
+        que decisões foram tomadas em cada fase.
+      </p>
+
+      <p>
+        Esta forma de trabalho é útil porque permite controlar versões, manter
+        um histórico de alterações, facilitar colaboração, criar um backup
+        remoto e organizar melhor os ficheiros do projeto.
+      </p>
+    </section>
+
+    <section>
+      <h4>Vantagens</h4>
+
+      <ul>
+        <li>
+          <strong>Controlo de versões:</strong> permite guardar estados
+          sucessivos do projeto e recuperar alterações anteriores se necessário.
+        </li>
+        <li>
+          <strong>Histórico de alterações:</strong> facilita perceber quando e
+          porque foi feita determinada alteração.
+        </li>
+        <li>
+          <strong>Colaboração:</strong> permite que várias pessoas trabalhem no
+          mesmo projeto de forma mais organizada.
+        </li>
+        <li>
+          <strong>Backup remoto:</strong> mantém uma cópia do projeto fora do
+          computador local.
+        </li>
+        <li>
+          <strong>Organização do projeto:</strong> centraliza o código, a
+          documentação e a evolução do trabalho.
+        </li>
+      </ul>
+    </section>
+  </article>
+
+  <article>
+    <header>
+      <h3>Making-Of</h3>
+    </header>
+
+    <p>
+      O Making-Of documenta o processo de desenvolvimento da aplicação. O
+      principal desafio desta fase foi criar uma página técnica organizada, que
+      explique como a aplicação está construída e que possa continuar a crescer
+      nas próximas semanas.
+    </p>
+
+    <section>
+      <h4>O que foi desenvolvido nesta fase</h4>
+
+      <p>
+        Nesta fase foi criada a página <strong>Sobre esta Aplicação</strong>,
+        acessível através da navegação principal do portefólio. A página foi
+        preparada para reunir explicações sobre a arquitetura MVT do Django, a
+        modelação da base de dados, as tecnologias utilizadas, a estrutura das
+        páginas, o repositório GitHub e o próprio processo de desenvolvimento.
+      </p>
+
+      <p>
+        Também foi melhorada a modelação das tecnologias. Foi criada a entidade
+        <strong>TipoTecnologia</strong> e o modelo <strong>Tecnologia</strong>
+        passou a estar associado a um tipo através de uma chave estrangeira.
+        Esta alteração torna os dados mais consistentes e permite agrupar
+        tecnologias por categorias.
+      </p>
+    </section>
+
+    <section>
+      <h4>Alterações registadas</h4>
+
+      <ul>
+        <li>Criação da página “Sobre esta Aplicação”.</li>
+        <li>Criação da rota, view e template próprios para a página.</li>
+        <li>Criação das secções técnicas da página.</li>
+        <li>Criação do modelo TipoTecnologia.</li>
+        <li>Alteração do modelo Tecnologia para usar TipoTecnologia.</li>
+        <li>Preparação para incluir imagens, vídeo e diagramas no futuro.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h4>Evolução futura</h4>
+
+      <p>
+        No futuro, esta secção pode evoluir para uma página própria com todos os
+        detalhes do processo de desenvolvimento. A aplicação já tem uma página
+        <a href="{% url 'portfolio_making_of' %}">Making of</a>, que pode ser
+        usada para listar registos mais detalhados.
+      </p>
+
+      <p>
+        Como existe apontamento em Markdown no projeto, uma possibilidade futura
+        é usar uma biblioteca como <strong>Markdownify</strong>. Assim, os
+        textos escritos em Markdown poderiam ser apresentados em HTML mantendo
+        títulos, listas, links e outras formatações de forma mais organizada.
+      </p>
+    </section>
+  </article>
+</section>
+{% endblock %}

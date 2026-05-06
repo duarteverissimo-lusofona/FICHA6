@@ -9,7 +9,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
 django.setup()
 
-from portfolio.models import TFC, Tecnologia, Docente, Licenciatura
+from portfolio.models import TFC, Tecnologia, TipoTecnologia, Docente, Licenciatura
 
 print("=== A iniciar importação dos TFCs a partir do JSON ===\n")
 
@@ -63,12 +63,13 @@ with open('data/tfcs_2025.json', encoding='utf-8') as f:
 
         # ---- Resolver M:N: Tecnologias ----
         tecnologias_list = tfc_data.get('tecnologias', [])
+        tipo_outros, _ = TipoTecnologia.objects.get_or_create(nome='Outros')
         for tec_nome in tecnologias_list:
             tec_nome_limpo = tec_nome.rstrip('.')  # Remove pontos finais
             tec, _ = Tecnologia.objects.get_or_create(
                 nome=tec_nome_limpo,
                 defaults={
-                    'tipo': 'Outro',
+                    'tipo': tipo_outros,
                     'nivel_interesse': 3,
                 }
             )

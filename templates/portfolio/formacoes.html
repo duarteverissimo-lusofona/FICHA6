@@ -3,6 +3,10 @@
 {% extends "portfolio/base.html" %} {% block content %}
 <h2>Formacoes</h2>
 
+<p class="actions">
+  <a class="button" href="{% url 'nova_formacao' %}">Criar nova formacao</a>
+</p>
+
 <section>
   {% for formacao in formacoes %}
   <article>
@@ -13,6 +17,11 @@
       <img src="{{ formacao.certificado.url }}" alt="Certificado de {{ formacao.titulo }}" />
       {% endif %}
     </header>
+
+    <p class="actions">
+      <a class="button" href="{% url 'edita_formacao' formacao.id %}">Editar</a>
+      <a class="button button-danger" href="{% url 'apaga_formacao' formacao.id %}">Apagar</a>
+    </p>
 
     <section>
       <h4>Datas</h4>
