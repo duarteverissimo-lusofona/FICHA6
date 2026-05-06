@@ -22,11 +22,12 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("accounts.urls")),
+    path("accounts/", include("accounts.urls")),
     path("portfolio/", include("portfolio.urls")),
-    path("escola/", include("escola.urls")), 
-    path("", include("escola.urls")),  #  rota para app escola sem precisar de escrever "escola"
+    path("escola/", include("escola.urls")),
+    path("", include("portfolio.urls")),
 ]
+
 # Serve ficheiros media em DEBUG
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
