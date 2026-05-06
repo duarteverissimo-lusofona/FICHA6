@@ -1,5 +1,9 @@
+from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch
+from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
+
+from accounts.utils import is_gestor_portfolio
 
 from .forms import CompetenciaForm, FormacaoForm, ProjetoForm, TecnologiaForm
 
@@ -16,6 +20,14 @@ from .models import (
     TFC,
     UnidadeCurricular,
 )
+
+
+def _gestor_context(request):
+    return {"gestor_portfolio": is_gestor_portfolio(request.user)}
+
+
+def _sem_permissao():
+    return HttpResponseForbidden("Não tem permissão para aceder a esta página.")
 
 
 def portfolio_view(request):
@@ -81,11 +93,15 @@ def tecnologias_view(request):
     return render(
         request,
         "portfolio/tecnologias.html",
-        {"tecnologias": tecnologias},
+        {"tecnologias": tecnologias, **_gestor_context(request)},
     )
 
 
+@login_required
 def nova_tecnologia_view(request):
+    if not is_gestor_portfolio(request.user):
+        return _sem_permissao()
+
     form = TecnologiaForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():
@@ -95,7 +111,11 @@ def nova_tecnologia_view(request):
     return render(request, "portfolio/nova_tecnologia.html", {"form": form})
 
 
+@login_required
 def edita_tecnologia_view(request, tecnologia_id):
+    if not is_gestor_portfolio(request.user):
+        return _sem_permissao()
+
     tecnologia = get_object_or_404(Tecnologia, id=tecnologia_id)
     form = TecnologiaForm(
         request.POST or None,
@@ -114,7 +134,11 @@ def edita_tecnologia_view(request, tecnologia_id):
     )
 
 
+@login_required
 def apaga_tecnologia_view(request, tecnologia_id):
+    if not is_gestor_portfolio(request.user):
+        return _sem_permissao()
+
     tecnologia = get_object_or_404(Tecnologia, id=tecnologia_id)
 
     if request.method == "POST":
@@ -133,10 +157,18 @@ def projetos_view(request):
         "tecnologias",
     ).order_by("-ano", "titulo")
 
-    return render(request, "portfolio/projetos.html", {"projetos": projetos})
+    return render(
+        request,
+        "portfolio/projetos.html",
+        {"projetos": projetos, **_gestor_context(request)},
+    )
 
 
+@login_required
 def novo_projeto_view(request):
+    if not is_gestor_portfolio(request.user):
+        return _sem_permissao()
+
     form = ProjetoForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():
@@ -146,7 +178,11 @@ def novo_projeto_view(request):
     return render(request, "portfolio/novo_projeto.html", {"form": form})
 
 
+@login_required
 def edita_projeto_view(request, projeto_id):
+    if not is_gestor_portfolio(request.user):
+        return _sem_permissao()
+
     projeto = get_object_or_404(Projeto, id=projeto_id)
     form = ProjetoForm(request.POST or None, request.FILES or None, instance=projeto)
 
@@ -161,7 +197,11 @@ def edita_projeto_view(request, projeto_id):
     )
 
 
+@login_required
 def apaga_projeto_view(request, projeto_id):
+    if not is_gestor_portfolio(request.user):
+        return _sem_permissao()
+
     projeto = get_object_or_404(Projeto, id=projeto_id)
 
     if request.method == "POST":
@@ -189,11 +229,15 @@ def competencias_view(request):
     return render(
         request,
         "portfolio/competencias.html",
-        {"competencias": competencias},
+        {"competencias": competencias, **_gestor_context(request)},
     )
 
 
+@login_required
 def nova_competencia_view(request):
+    if not is_gestor_portfolio(request.user):
+        return _sem_permissao()
+
     form = CompetenciaForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():
@@ -203,7 +247,11 @@ def nova_competencia_view(request):
     return render(request, "portfolio/nova_competencia.html", {"form": form})
 
 
+@login_required
 def edita_competencia_view(request, competencia_id):
+    if not is_gestor_portfolio(request.user):
+        return _sem_permissao()
+
     competencia = get_object_or_404(Competencia, id=competencia_id)
     form = CompetenciaForm(
         request.POST or None,
@@ -222,7 +270,11 @@ def edita_competencia_view(request, competencia_id):
     )
 
 
+@login_required
 def apaga_competencia_view(request, competencia_id):
+    if not is_gestor_portfolio(request.user):
+        return _sem_permissao()
+
     competencia = get_object_or_404(Competencia, id=competencia_id)
 
     if request.method == "POST":
@@ -242,10 +294,18 @@ def formacoes_view(request):
         "titulo",
     )
 
-    return render(request, "portfolio/formacoes.html", {"formacoes": formacoes})
+    return render(
+        request,
+        "portfolio/formacoes.html",
+        {"formacoes": formacoes, **_gestor_context(request)},
+    )
 
 
+@login_required
 def nova_formacao_view(request):
+    if not is_gestor_portfolio(request.user):
+        return _sem_permissao()
+
     form = FormacaoForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():
@@ -255,7 +315,11 @@ def nova_formacao_view(request):
     return render(request, "portfolio/nova_formacao.html", {"form": form})
 
 
+@login_required
 def edita_formacao_view(request, formacao_id):
+    if not is_gestor_portfolio(request.user):
+        return _sem_permissao()
+
     formacao = get_object_or_404(Formacao, id=formacao_id)
     form = FormacaoForm(request.POST or None, request.FILES or None, instance=formacao)
 
@@ -270,7 +334,11 @@ def edita_formacao_view(request, formacao_id):
     )
 
 
+@login_required
 def apaga_formacao_view(request, formacao_id):
+    if not is_gestor_portfolio(request.user):
+        return _sem_permissao()
+
     formacao = get_object_or_404(Formacao, id=formacao_id)
 
     if request.method == "POST":

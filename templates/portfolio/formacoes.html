@@ -3,9 +3,11 @@
 {% extends "portfolio/base.html" %} {% block content %}
 <h2>Formacoes</h2>
 
+{% if gestor_portfolio %}
 <p class="actions">
   <a class="button" href="{% url 'nova_formacao' %}">Criar nova formacao</a>
 </p>
+{% endif %}
 
 <section>
   {% for formacao in formacoes %}
@@ -18,10 +20,12 @@
       {% endif %}
     </header>
 
-    <p class="actions">
-      <a class="button" href="{% url 'edita_formacao' formacao.id %}">Editar</a>
-      <a class="button button-danger" href="{% url 'apaga_formacao' formacao.id %}">Apagar</a>
-    </p>
+    {% if gestor_portfolio %}
+      <p class="actions">
+        <a class="button" href="{% url 'edita_formacao' formacao.id %}">Editar</a>
+        <a class="button button-danger" href="{% url 'apaga_formacao' formacao.id %}">Apagar</a>
+      </p>
+    {% endif %}
 
     <section>
       <h4>Datas</h4>

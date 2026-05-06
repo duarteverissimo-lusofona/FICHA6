@@ -3,9 +3,11 @@
 {% extends "portfolio/base.html" %} {% block content %}
 <h2>Competencias</h2>
 
+{% if gestor_portfolio %}
 <p class="actions">
   <a class="button" href="{% url 'nova_competencia' %}">Criar nova competencia</a>
 </p>
+{% endif %}
 
 <section>
   {% for competencia in competencias %}
@@ -15,10 +17,12 @@
       <p>{{ competencia.categoria }} | Nivel: {{ competencia.nivel }}/5</p>
     </header>
 
-    <p class="actions">
-      <a class="button" href="{% url 'edita_competencia' competencia.id %}">Editar</a>
-      <a class="button button-danger" href="{% url 'apaga_competencia' competencia.id %}">Apagar</a>
-    </p>
+    {% if gestor_portfolio %}
+      <p class="actions">
+        <a class="button" href="{% url 'edita_competencia' competencia.id %}">Editar</a>
+        <a class="button button-danger" href="{% url 'apaga_competencia' competencia.id %}">Apagar</a>
+      </p>
+    {% endif %}
 
     {% if competencia.descricao %}
     <p>{{ competencia.descricao }}</p>

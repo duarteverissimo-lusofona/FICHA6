@@ -3,9 +3,11 @@
 {% extends "portfolio/base.html" %} {% block content %}
 <h2>Tecnologias</h2>
 
+{% if gestor_portfolio %}
 <p class="actions">
   <a class="button" href="{% url 'nova_tecnologia' %}">Criar nova tecnologia</a>
 </p>
+{% endif %}
 
 <section>
   {% for tecnologia in tecnologias %}
@@ -21,10 +23,12 @@
       {% endif %}
     </header>
 
-    <p class="actions">
-      <a class="button" href="{% url 'edita_tecnologia' tecnologia.id %}">Editar</a>
-      <a class="button button-danger" href="{% url 'apaga_tecnologia' tecnologia.id %}">Apagar</a>
-    </p>
+    {% if gestor_portfolio %}
+      <p class="actions">
+        <a class="button" href="{% url 'edita_tecnologia' tecnologia.id %}">Editar</a>
+        <a class="button button-danger" href="{% url 'apaga_tecnologia' tecnologia.id %}">Apagar</a>
+      </p>
+    {% endif %}
 
     {% if tecnologia.descricao %}
     <p>{{ tecnologia.descricao }}</p>

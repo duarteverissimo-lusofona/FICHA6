@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("", include("accounts.urls")),
     path("portfolio/", include("portfolio.urls")),
     path("escola/", include("escola.urls")), 
     path("", include("escola.urls")),  #  rota para app escola sem precisar de escrever "escola"
