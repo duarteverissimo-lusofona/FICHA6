@@ -7,6 +7,8 @@ from django.core.mail import send_mail
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
+from artigos.utils import get_autores_group
+
 from .forms import MagicLoginForm, RegistoForm
 from .models import MagicLoginToken
 
@@ -37,7 +39,8 @@ def registo_view(request):
     form = RegistoForm(request.POST or None)
 
     if form.is_valid():
-        form.save()
+        user = form.save()
+        user.groups.add(get_autores_group())
         return redirect('login')
 
     return render(request, 'accounts/registo.html', {'form': form})
