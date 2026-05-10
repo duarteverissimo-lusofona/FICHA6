@@ -13,7 +13,13 @@
   {% for tecnologia in tecnologias %}
   <article>
     <header>
-      <h3>{{ tecnologia.nome }}</h3>
+      <h3>
+        {% if gestor_portfolio %}
+        <a href="{% url 'edita_tecnologia' tecnologia.id %}">{{ tecnologia.nome }}</a>
+        {% else %}
+        {{ tecnologia.nome }}
+        {% endif %}
+      </h3>
       <p>{{ tecnologia.tipo }} | Interesse: {{ tecnologia.nivel_interesse }}/5</p>
       {% if tecnologia.logo %}
       <img src="{{ tecnologia.logo.url }}" alt="Logo de {{ tecnologia.nome }}" />
